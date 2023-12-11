@@ -371,7 +371,13 @@ background-color: rgb(154, 245, 192);
         },
 
         mounted(){
-            this.listElements = JSON.parse(localStorage.getItem("listElements"))
+            const storedListElements = localStorage.getItem("listElements");
+
+            if (storedListElements) {
+                this.listElements = JSON.parse(storedListElements);
+            } else {
+                this.listElements = [];
+            }
         },
 
         methods: {
@@ -419,6 +425,7 @@ background-color: rgb(154, 245, 192);
                 const index = this.listElements.indexOf(element);
                 if (index !== -1) {
                     this.listElements.splice(index, 1);
+                    localStorage.setItem("listElements", JSON.stringify(this.listElements) );
                 }
             },
 
